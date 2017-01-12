@@ -3,16 +3,15 @@ Depends on jQuery (look at demo)
 ## Usage example:
 
 ```
-var options = {
-	collectionWrapperSelector: 'ul',
-	leftBtnSelector: '.lc-arrow-left',
-	rightBtnSelector: '.lc-arrow-right',
-	scrollbarTrackSelector: '.scrollbar-track'
+var selectors = {
+	collectionWrapper: 'ul',
+	leftBtn: '.lc-arrow-left',
+	rightBtn: '.lc-arrow-right',
+	scrollbarTrack: '.scrollbar-track'
 }
 
 var wrapper = $('#carousel');
-
-var lc = new LightCarousel(wrapper, options);
+var lc = new LightCarousel(wrapper, selectors);
 lc.setup();
 ```
 
