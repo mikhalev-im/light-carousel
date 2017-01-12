@@ -1,5 +1,6 @@
 # Light carousel
 Depends on jQuery (look at demo)
+
 ## Usage example:
 
 ```
