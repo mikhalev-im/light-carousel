@@ -153,15 +153,15 @@
 		<script type="text/javascript" src="../src/slider.js"></script>
 		<script type="text/javascript">
 			window.onload = function init() {
-				var options = {
-					collectionWrapperSelector: 'ul',
-					leftBtnSelector: '.lc-arrow-left',
-					rightBtnSelector: '.lc-arrow-right',
-					scrollbarTrackSelector: '.scrollbar-track'
+				var selectors = {
+					collectionWrapper: 'ul',
+					leftBtn: '.lc-arrow-left',
+					rightBtn: '.lc-arrow-right',
+					scrollbarTrack: '.scrollbar-track'
 				}
 
 				var wrapper = $('#carousel');
-				var lc = new LightCarousel(wrapper, options);
+				var lc = new LightCarousel(wrapper, selectors);
 				lc.setup();
 			}
 		</script>

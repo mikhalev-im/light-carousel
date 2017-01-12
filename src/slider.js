@@ -9,9 +9,9 @@
 		root.LightCarousel = factory(root.jQuery);
 	}
 }(this, function($) {
-	function LightCarousel(wrapper, options) {
-		this.options = options;
-		this.ANIMATION_SPEED = options.animationSpeed || 500;
+	function LightCarousel(wrapper, selectors, options) {
+		this.options = options || {};
+		this.ANIMATION_SPEED = this.options.animationSpeed || 500;
 
 		// ELEMENTS
 		if (wrapper instanceof $) {
@@ -20,14 +20,14 @@
 			this.wrapper = $(wrapper);
 		}
 
-		this.carousel = this.wrapper.find(options.collectionWrapperSelector);
+		this.carousel = this.wrapper.find(selectors.collectionWrapper);
 		this.collection = this.carousel.children();
 
-		this.leftArrow = this.wrapper.find(options.leftBtnSelector);
-		this.rightArrow = this.wrapper.find(options.rightBtnSelector);
+		this.leftArrow = this.wrapper.find(selectors.leftBtn);
+		this.rightArrow = this.wrapper.find(selectors.rightBtn);
 
 
-		this.thumbTrack = this.wrapper.find(options.scrollbarTrackSelector);
+		this.thumbTrack = this.wrapper.find(selectors.scrollbarTrack);
 		this.thumb = this.thumbTrack.children();
 
 		// STATE
