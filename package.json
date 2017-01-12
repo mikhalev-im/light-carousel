@@ -1,6 +1,6 @@
 {
   "name": "light-carousel",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Light jQuery carousel",
   "main": "lc.min.js",
   "scripts": {
