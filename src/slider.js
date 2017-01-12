@@ -97,7 +97,7 @@
 
 			self.changeThumbPosition(position);
 
-			var percent = Math.floor( self.currentThumbOffset / ( self.thumbTrack.width() - self.thumb.width() ) * 100 ) / 100;
+			var percent = self.calcThumbPercentPosition();
 			var carouselOffset = self.calcCarouselOffsetByPercent(percent);
 
 			self.moveCarousel(carouselOffset);
@@ -174,14 +174,17 @@
 	}
 
 	LightCarousel.prototype.calcCarouselOffsetByPercent = function(percent) {
-		var pos = - Math.floor( ( this.carousel.width() - this.wrapper.width() ) * percent );
-		return pos;
+		return - Math.floor( ( this.carousel.width() - this.wrapper.width() ) * percent );
 	}
 
 	LightCarousel.prototype.calcThumbOffsetByCarouselOffset = function(offset) {
 		var percent = Math.floor( -offset / ( this.carousel.width() - this.wrapper.width() ) * 100 ) / 100;
 		var pos = Math.floor( (this.thumbTrack.width() - this.thumb.width()) * percent );
 		return pos;
+	}
+
+	LightCarousel.prototype.calcThumbPercentPosition = function() {
+		return Math.floor( this.currentThumbOffset / ( this.thumbTrack.width() - this.thumb.width() ) * 100 ) / 100;
 	}
 
 	// ANIMATORS
