@@ -1,0 +1,22 @@
+{
+  "name": "light-carousel",
+  "version": "1.0.0",
+  "description": "Light jQuery carousel",
+  "main": "lc.min.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/C1one-38/light-carousel.git"
+  },
+  "keywords": [
+    "carousel"
+  ],
+  "author": "C1one_38",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/C1one-38/light-carousel/issues"
+  },
+  "homepage": "https://github.com/C1one-38/light-carousel#readme"
+}
