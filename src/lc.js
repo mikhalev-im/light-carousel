@@ -218,15 +218,9 @@
 	}
 
 	LightCarousel.prototype.calcThumbOffsetByCarouselOffset = function(offset) {
-		var percent;
-
-		if (offset > 0) {
-			percent = Math.floor( (offset) / (this.wrapper.width() - this.carousel.width()) * 100 ) / 100;
-		} else {
-			percent = Math.floor( -offset / ( Math.abs( this.carousel.width() - this.wrapper.width() ) ) * 100 ) / 100;
-		}
-
+		var percent = Math.floor( Math.abs(offset / ( this.carousel.width() - this.wrapper.width() ) ) * 100 ) / 100;
 		var pos = Math.floor( (this.thumbTrack.width() - this.thumb.width()) * percent );
+
 		return pos;
 	}
 
