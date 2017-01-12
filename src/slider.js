@@ -11,6 +11,7 @@
 }(this, function($) {
 	function LightCarousel(wrapper, options) {
 		this.options = options;
+		this.ANIMATION_SPEED = options.animationSpeed || 500;
 
 		// ELEMENTS
 		if (wrapper instanceof $) {
@@ -109,15 +110,54 @@
 	}
 
 	LightCarousel.prototype.handleResize = function(e) {
-		if (this.wrapper.width() - this.currentOffset > this.carousel.width()) {
-			var offset = this.currentOffset + this.wrapper.width() - this.lastWrapperWidth;
-			this.moveCarousel(offset);
-		}
-
-		this.lastWrapperWidth = this.wrapper.width();
+		this.produceCarouselOffsetOnResize();
 
 		var thumbOffset = this.calcThumbOffsetByCarouselOffset(this.currentOffset);
+		this.lastWrapperWidth = this.wrapper.width();
+
 		this.moveThumb(thumbOffset);
+	}
+
+	LightCarousel.prototype.produceCarouselOffsetOnResize = function() {
+		// When we should move carousel?
+		// 1) If carousel width > wrapper width:
+		//  - If current offset was positive -> set offset = 0
+		//  - When we hit the right border of carousel -> increase offset on resize length
+		// 2) If carousel width < wrapper width:
+		//  - If current offset was negative -> set offset = 0
+		//  - If current offset was positive:
+		//    - If wrapper became smaller -> decrease offset on resize length (untill it become 0)
+
+		var offset;
+
+		if (this.carousel.width() > this.wrapper.width()) {
+
+			if (this.currentOffset > 0) {
+				this.moveCarousel(0);
+			} else if (this.wrapper.width() - this.currentOffset > this.carousel.width()) {
+				offset = this.calcCarouselOffsetOnResize();
+				this.moveCarousel(offset);
+			}
+
+		} else {
+
+			if (this.currentOffset < 0) {
+				this.moveCarousel(0);
+			} else {
+				if (this.lastWrapperWidth > this.wrapper.width()) {
+					offset = this.calcCarouselOffsetOnResize();
+
+					if (offset > 0) {
+						this.moveCarousel(offset);
+					} else {
+						this.moveCarousel(0);
+					}
+
+				}
+			}
+
+		}
+
 	}
 
 	// CALCULATIONS
@@ -178,7 +218,14 @@
 	}
 
 	LightCarousel.prototype.calcThumbOffsetByCarouselOffset = function(offset) {
-		var percent = Math.floor( -offset / ( this.carousel.width() - this.wrapper.width() ) * 100 ) / 100;
+		var percent;
+
+		if (offset > 0) {
+			percent = Math.floor( (offset) / (this.wrapper.width() - this.carousel.width()) * 100 ) / 100;
+		} else {
+			percent = Math.floor( -offset / ( Math.abs( this.carousel.width() - this.wrapper.width() ) ) * 100 ) / 100;
+		}
+
 		var pos = Math.floor( (this.thumbTrack.width() - this.thumb.width()) * percent );
 		return pos;
 	}
@@ -187,13 +234,17 @@
 		return Math.floor( this.currentThumbOffset / ( this.thumbTrack.width() - this.thumb.width() ) * 100 ) / 100;
 	}
 
+	LightCarousel.prototype.calcCarouselOffsetOnResize = function() {
+		return this.currentOffset + this.wrapper.width() - this.lastWrapperWidth;
+	}
+
 	// ANIMATORS
 
 	LightCarousel.prototype.animateButtonOffset = function(carouselOffset, thumbOffset) {
 		if ( carouselOffset !== this.currentOffset ) {
 			this.carousel.animate({
 				left: carouselOffset
-			}, 500);
+			}, this.ANIMATION_SPEED);
 
 			this.animateThumbMovement(thumbOffset);
 
@@ -201,12 +252,12 @@
 		} else {
 			if (carouselOffset === 0) {
 				this.carousel
-					.animate({ left: "+=40" }, 250)
-					.animate({ left: "-=40" }, 250);
+					.animate({ left: "+=40" }, this.ANIMATION_SPEED / 2)
+					.animate({ left: "-=40" }, this.ANIMATION_SPEED / 2);
 			} else {
 				this.carousel
-					.animate({ left: "-=40" }, 250)
-					.animate({ left: "+=40" }, 250);
+					.animate({ left: "-=40" }, this.ANIMATION_SPEED / 2)
+					.animate({ left: "+=40" }, this.ANIMATION_SPEED / 2);
 			}
 		}
 	}
@@ -228,7 +279,7 @@
 	}
 
 	LightCarousel.prototype.animateThumbMovement = function(offset) {
-		this.thumb.animate( {left : offset}, 500 );
+		this.thumb.animate( {left : offset}, this.ANIMATION_SPEED );
 		this.currentThumbOffset = offset;
 	}
 
