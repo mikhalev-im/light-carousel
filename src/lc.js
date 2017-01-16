@@ -9,9 +9,16 @@
 		root.LightCarousel = factory(root.jQuery);
 	}
 }(this, function($) {
-	function LightCarousel(wrapper, selectors, options) {
-		this.options = options || {};
-		this.ANIMATION_SPEED = this.options.animationSpeed || 500;
+	function LightCarousel(wrapper, options) {
+		this.options = $.extend(true, {
+			animationSpeed: 500,
+			selectors: {
+				collectionWrapper: 'ul',
+				leftBtn: '.lc-arrow-left',
+				rightBtn: '.lc-arrow-right',
+				scrollbarTrack: '.scrollbar-track'
+			}
+		}, options);
 
 		// ELEMENTS
 		if (wrapper instanceof $) {
@@ -20,14 +27,14 @@
 			this.wrapper = $(wrapper);
 		}
 
-		this.carousel = this.wrapper.find(selectors.collectionWrapper);
+		this.carousel = this.wrapper.find(this.options.selectors.collectionWrapper);
 		this.collection = this.carousel.children();
 
-		this.leftArrow = this.wrapper.find(selectors.leftBtn);
-		this.rightArrow = this.wrapper.find(selectors.rightBtn);
+		this.leftArrow = this.wrapper.find(this.options.selectors.leftBtn);
+		this.rightArrow = this.wrapper.find(this.options.selectors.rightBtn);
 
 
-		this.thumbTrack = this.wrapper.find(selectors.scrollbarTrack);
+		this.thumbTrack = this.wrapper.find(this.options.selectors.scrollbarTrack);
 		this.thumb = this.thumbTrack.children();
 
 		// STATE
@@ -44,20 +51,11 @@
 	}
 
 	LightCarousel.prototype.setupStyles = function() {
-		this.wrapper.css('overflow', 'hidden');
-		this.wrapper.css('white-space', 'nowrap');
-
-		this.carousel.css('position', 'relative');
-		this.carousel.css('left', '0px');
-		this.carousel.css('display', 'inline-block');
-		// to remove space between inline-block
-		this.carousel.css('word-spacing', '-.36em');
-
-		this.collection.css('display', 'inline-block');
-
-		this.thumbTrack.css('position', 'relative');
-		this.thumb.css('position', 'absolute');
-		this.thumb.css('left', '0px');
+		this.wrapper.addClass('lc-wrapper');
+		this.carousel.addClass('lc-carousel');
+		this.collection.addClass('lc-carousel-item');
+		this.thumbTrack.addClass('lc-scrollbar');
+		this.thumb.addClass('lc-scrollbar-thumb');
 	}
 
 	LightCarousel.prototype.bindListeners = function() {
@@ -68,6 +66,38 @@
 		$(window).on('resize', $.proxy(this.handleResize, this));
 	}
 
+	LightCarousel.prototype.destroy = function() {
+		this.unbindListeners();
+		this.removeStyles();
+
+		this.options = null;
+		this.wrapper = null;
+		this.carousel = null;
+		this.collection = null;
+		this.leftArrow = null;
+		this.rightArrow = null;
+		this.thumbTrack = null;
+		this.thumb = null;
+		this.currentOffset = null;
+		this.currentThumbOffset = null;
+		this.lastWrapperWidth = null;
+	}
+
+	LightCarousel.prototype.unbindListeners = function() {
+		this.leftArrow.off('click');
+		this.rightArrow.off('click');
+		this.thumb.off('mousedown');
+		$(window).off('resize');
+	}
+
+	LightCarousel.prototype.removeStyles = function() {
+		this.wrapper.removeClass('lc-wrapper');
+		this.carousel.removeClass('lc-carousel');
+		this.collection.removeClass('lc-carousel-item');
+		this.thumbTrack.removeClass('lc-scrollbar');
+		this.thumb.removeClass('lc-scrollbar-thumb');
+	}
+
 	// LISTENERS
 
 	LightCarousel.prototype.produceButtonOffset = function(e) {
@@ -76,17 +106,20 @@
 		}
 
 		var carouselOffset = 0,
-			thumbOffset = 0;
+			thumbOffset = 0,
+			activeArrow = null;
 
 		if ( $(e.currentTarget).hasClass('lc-arrow-left') ) {
 			carouselOffset = this.calcLeftOffset();
+			activeArrow = this.leftArrow;
 		} else {
 			carouselOffset = this.calcRightOffset();
+			activeArrow = this.rightArrow;
 		}
 
 		thumbOffset = this.calcThumbOffsetByCarouselOffset(carouselOffset);
 
-		this.animateButtonOffset(carouselOffset, thumbOffset);
+		this.animateButtonOffset(carouselOffset, thumbOffset, activeArrow);
 	}
 
 	LightCarousel.prototype.produceScrollbarOffset = function(eDown) {
@@ -234,11 +267,15 @@
 
 	// ANIMATORS
 
-	LightCarousel.prototype.animateButtonOffset = function(carouselOffset, thumbOffset) {
+	LightCarousel.prototype.animateButtonOffset = function(carouselOffset, thumbOffset, activeArrow) {
 		if ( carouselOffset !== this.currentOffset ) {
 			this.carousel.animate({
 				left: carouselOffset
-			}, this.ANIMATION_SPEED);
+			}, {
+				duration: this.options.animationSpeed,
+				start: $.proxy(this.addActiveArrowStyle, activeArrow),
+				done: $.proxy(this.removeActiveArrowStyle, activeArrow)
+			});
 
 			this.animateThumbMovement(thumbOffset);
 
@@ -246,14 +283,42 @@
 		} else {
 			if (carouselOffset === 0) {
 				this.carousel
-					.animate({ left: "+=40" }, this.ANIMATION_SPEED / 2)
-					.animate({ left: "-=40" }, this.ANIMATION_SPEED / 2);
+					.animate({
+						left: "+=40"
+					}, {
+						duration: this.options.animationSpeed / 2,
+						start: $.proxy(this.addActiveArrowStyle, activeArrow)
+					})
+					.animate({
+						left: "-=40"
+					}, {
+						duration: this.options.animationSpeed / 2,
+						done: $.proxy(this.removeActiveArrowStyle, activeArrow)
+					});
 			} else {
 				this.carousel
-					.animate({ left: "-=40" }, this.ANIMATION_SPEED / 2)
-					.animate({ left: "+=40" }, this.ANIMATION_SPEED / 2);
+					.animate({
+						left: "-=40"
+					}, {
+						duration: this.options.animationSpeed / 2,
+						start: $.proxy(this.addActiveArrowStyle, activeArrow)
+					})
+					.animate({
+						left: "+=40"
+					}, {
+						duration: this.options.animationSpeed / 2,
+						done: $.proxy(this.removeActiveArrowStyle, activeArrow)
+					});
 			}
 		}
+	}
+
+	LightCarousel.prototype.addActiveArrowStyle = function() {
+		this.addClass('lc-arrow-active');
+	}
+
+	LightCarousel.prototype.removeActiveArrowStyle = function() {
+		this.removeClass('lc-arrow-active');
 	}
 
 	LightCarousel.prototype.changeThumbPosition = function(position) {
@@ -273,7 +338,7 @@
 	}
 
 	LightCarousel.prototype.animateThumbMovement = function(offset) {
-		this.thumb.animate( {left : offset}, this.ANIMATION_SPEED );
+		this.thumb.animate( {left : offset}, this.options.animationSpeed );
 		this.currentThumbOffset = offset;
 	}
 

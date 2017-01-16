@@ -3,6 +3,9 @@
 	<head>
 		<meta charset="utf-8">
 		<title>Slider</title>
+
+		<!-- CUSTOM STYLES -->
+
 		<style media="screen">
 			.lc-wrapper {
 				overflow: hidden;
@@ -96,6 +99,39 @@
 				cursor: pointer;
 			}
 		</style>
+
+		<!--  BASE STYLES  -->
+
+		<style media="screen">
+			.lc-wrapper {
+				overflow: hidden;
+				white-space: nowrap;
+			}
+
+			.lc-carousel {
+				position: relative;
+				left: 0px;
+				display: inline-block;\
+				word-spacing: -.36em;
+			}
+
+			.lc-carousel-item {
+				display: inline-block;
+			}
+
+			.lc-scrollbar {
+				position: relative;
+			}
+
+			.lc-scrollbar-thumb {
+				position: absolute;
+				left: 0px;
+			}
+
+			.lc-arrow-active {
+				box-shadow: inset 0 3px 5px rgba(0,0,0,.25);
+			}
+		</style>
 	</head>
 	<body>
 		<div class="lc-wrapper" id="carousel">
@@ -142,8 +178,8 @@
 			<a href="#" class="lc-arrow-right lc-arrow"> > </a>
 
 			<span class="scrollbar">
-				<span class="scrollbar-track">
-					<span class="scrollbar-thumb"></span>
+				<span class="scrollbar-track lc-scrollbar">
+					<span class="scrollbar-thumb lc-scrollbar-thumb"></span>
 				</span>
 			</span>
 		</div>
@@ -152,15 +188,8 @@
 		<script type="text/javascript" src="../src/lc.js"></script>
 		<script type="text/javascript">
 			window.onload = function init() {
-				var selectors = {
-					collectionWrapper: 'ul',
-					leftBtn: '.lc-arrow-left',
-					rightBtn: '.lc-arrow-right',
-					scrollbarTrack: '.scrollbar-track'
-				}
-
 				var wrapper = $('#carousel');
-				var lc = new LightCarousel(wrapper, selectors);
+				var lc = new LightCarousel(wrapper);
 				lc.setup();
 			}
 		</script>
