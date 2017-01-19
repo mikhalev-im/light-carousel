@@ -16,7 +16,7 @@
 				collectionWrapper: 'ul',
 				leftBtn: '.lc-arrow-left',
 				rightBtn: '.lc-arrow-right',
-				scrollbarTrack: '.scrollbar-track'
+				scrollbarTrack: '.lc-scrollbar-track'
 			}
 		}, options);
 
@@ -56,6 +56,10 @@
 		this.collection.addClass('lc-carousel-item');
 		this.thumbTrack.addClass('lc-scrollbar');
 		this.thumb.addClass('lc-scrollbar-thumb');
+
+		var arrowTop = Math.floor( this.carousel.height() / 2 - this.leftArrow.height() / 2);
+		this.leftArrow.css('top', arrowTop);
+		this.rightArrow.css('top', arrowTop);
 	}
 
 	LightCarousel.prototype.bindListeners = function() {
@@ -271,11 +275,7 @@
 		if ( carouselOffset !== this.currentOffset ) {
 			this.carousel.animate({
 				left: carouselOffset
-			}, {
-				duration: this.options.animationSpeed,
-				start: $.proxy(this.addActiveArrowStyle, activeArrow),
-				done: $.proxy(this.removeActiveArrowStyle, activeArrow)
-			});
+			}, this.options.animationSpeed);
 
 			this.animateThumbMovement(thumbOffset);
 
@@ -285,40 +285,20 @@
 				this.carousel
 					.animate({
 						left: "+=40"
-					}, {
-						duration: this.options.animationSpeed / 2,
-						start: $.proxy(this.addActiveArrowStyle, activeArrow)
-					})
+					}, this.options.animationSpeed / 2)
 					.animate({
 						left: "-=40"
-					}, {
-						duration: this.options.animationSpeed / 2,
-						done: $.proxy(this.removeActiveArrowStyle, activeArrow)
-					});
+					}, this.options.animationSpeed / 2);
 			} else {
 				this.carousel
 					.animate({
 						left: "-=40"
-					}, {
-						duration: this.options.animationSpeed / 2,
-						start: $.proxy(this.addActiveArrowStyle, activeArrow)
-					})
+					}, this.options.animationSpeed / 2)
 					.animate({
 						left: "+=40"
-					}, {
-						duration: this.options.animationSpeed / 2,
-						done: $.proxy(this.removeActiveArrowStyle, activeArrow)
-					});
+					}, this.options.animationSpeed / 2);
 			}
 		}
-	}
-
-	LightCarousel.prototype.addActiveArrowStyle = function() {
-		this.addClass('lc-arrow-active');
-	}
-
-	LightCarousel.prototype.removeActiveArrowStyle = function() {
-		this.removeClass('lc-arrow-active');
 	}
 
 	LightCarousel.prototype.changeThumbPosition = function(position) {
