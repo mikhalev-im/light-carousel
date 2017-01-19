@@ -57,7 +57,13 @@
 		this.thumbTrack.addClass('lc-scrollbar');
 		this.thumb.addClass('lc-scrollbar-thumb');
 
-		var arrowTop = Math.floor( this.carousel.height() / 2 - this.leftArrow.height() / 2);
+		var wrapperPaddingTop = parseInt( this.wrapper.css('padding-top') );
+		wrapperPaddingTop = isNaN(wrapperPaddingTop) ? 0 : wrapperPaddingTop;
+
+		var carouselMarginTop = parseInt ( this.carousel.css('margin-top') );
+		carouselMarginTop = isNaN(carouselMarginTop) ? 0 : carouselMarginTop;
+
+		var arrowTop = Math.floor( this.carousel.outerHeight() / 2 - this.leftArrow.outerHeight() / 2 + wrapperPaddingTop + carouselMarginTop );
 		this.leftArrow.css('top', arrowTop);
 		this.rightArrow.css('top', arrowTop);
 	}
@@ -105,6 +111,8 @@
 	// LISTENERS
 
 	LightCarousel.prototype.produceButtonOffset = function(e) {
+		e.preventDefault();
+
 		if ( this.carousel.is(':animated') ) {
 			return;
 		}
