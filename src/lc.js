@@ -118,20 +118,17 @@
 		}
 
 		var carouselOffset = 0,
-			thumbOffset = 0,
-			activeArrow = null;
+			thumbOffset = 0;
 
 		if ( $(e.currentTarget).hasClass('lc-arrow-left') ) {
 			carouselOffset = this.calcLeftOffset();
-			activeArrow = this.leftArrow;
 		} else {
 			carouselOffset = this.calcRightOffset();
-			activeArrow = this.rightArrow;
 		}
 
 		thumbOffset = this.calcThumbOffsetByCarouselOffset(carouselOffset);
 
-		this.animateButtonOffset(carouselOffset, thumbOffset, activeArrow);
+		this.animateButtonOffset(carouselOffset, thumbOffset);
 	}
 
 	LightCarousel.prototype.produceScrollbarOffset = function(eDown) {
@@ -279,7 +276,7 @@
 
 	// ANIMATORS
 
-	LightCarousel.prototype.animateButtonOffset = function(carouselOffset, thumbOffset, activeArrow) {
+	LightCarousel.prototype.animateButtonOffset = function(carouselOffset, thumbOffset) {
 		if ( carouselOffset !== this.currentOffset ) {
 			this.carousel.animate({
 				left: carouselOffset
