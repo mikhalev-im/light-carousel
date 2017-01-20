@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/C1one-38/light-carousel/issues"
   },
-  "homepage": "https://github.com/C1one-38/light-carousel#readme"
+  "homepage": "https://github.com/C1one-38/light-carousel#readme",
+  "dependencies": {
+    "jquery": "^3.1.1"
+  }
 }

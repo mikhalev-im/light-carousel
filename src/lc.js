@@ -1,10 +1,10 @@
 (function(root, factory) {
 	if(typeof define === "function" && define.amd) {
-		define(["jQuery"], function(jQuery){
-			return (root.LightCarousel = factory(jQuery));
+		define(["jquery"], function(jquery){
+			return (root.LightCarousel = factory(jquery));
 		});
 	} else if(typeof module === "object" && module.exports) {
-		module.exports = (root.LightCarousel = factory(require("jQuery")));
+		module.exports = (root.LightCarousel = factory(require("jquery")));
 	} else {
 		root.LightCarousel = factory(root.jQuery);
 	}
