@@ -27,7 +27,7 @@
 			this.wrapper = $(wrapper);
 		}
 
-		this.carousel = this.wrapper.find(this.options.selectors.collectionWrapper);
+		this.carousel = this.wrapper.find(this.options.selectors.collectionWrapper).eq(0);
 		this.collection = this.carousel.children();
 
 		this.leftArrow = this.wrapper.find(this.options.selectors.leftBtn);
