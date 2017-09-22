@@ -1,6 +1,9 @@
 # Light carousel
 Light-weight Amazon-like carousel based on jQuery!
 
+## Demo:
+<a href="https://c1one-38.github.io/light-carousel/">https://c1one-38.github.io/light-carousel/</a>
+
 ## Usage example:
 
 Easy as:
@@ -63,4 +66,10 @@ defaultOptions = {
 }
 
 new LightCarousel($('#carousel'), defaultOptions);
+```
+
+## Destroy:
+
+```js
+lc.destroy();
 ```
