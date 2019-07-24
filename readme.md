@@ -4,7 +4,7 @@ Light-weight Amazon-like carousel based on jQuery!
 ## Demo:
 <a href="https://c1one-38.github.io/light-carousel/">https://c1one-38.github.io/light-carousel/</a>
 
-## How to install
+## How to install:
 
 Using npm: 
 
