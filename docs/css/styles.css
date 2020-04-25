@@ -1,0 +1,92 @@
+.lc-wrapper {
+	overflow: hidden;
+	white-space: nowrap;
+	position: relative;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+.lc-wrapper .lc-carousel {
+	position: relative;
+	left: 0px;
+	display: inline-block;
+	word-spacing: -.36em;
+}
+
+.lc-wrapper .lc-carousel-item {
+	display: inline-block;
+}
+
+.lc-wrapper .lc-arrow {
+	position: absolute;
+	text-decoration: none;
+	color: #000;
+	width: 25px;
+	height: 50px;
+	background-color: #fff;
+	box-shadow: 0 1px 3px #888;
+	text-align: center;
+
+	vertical-align: middle;
+	line-height: 50px;
+}
+
+.lc-wrapper .lc-arrow:hover {
+	background-color: #eee;
+}
+
+.lc-wrapper .lc-arrow:active {
+	box-shadow: inset 0 2px 4px rgba(0,0,0,0.15)
+}
+
+.lc-wrapper .lc-arrow-left {
+	left: 0;
+	border-radius: 0 3px 3px 0;
+}
+
+.lc-wrapper .lc-arrow-right {
+	right: 0;
+	border-radius: 3px 0 0 3px;
+}
+
+.lc-wrapper .lc-scrollbar-track {
+	position: relative;
+
+	display: block;
+	background-color: #eee;
+	height: 1px;
+	border-radius: 4px;
+	width: 100%;
+	top: 2px;
+	margin: 0;
+}
+
+.lc-wrapper .lc-scrollbar-thumb {
+	position: absolute;
+	left: 0px;
+
+	background-color: #aaa;
+	height: 6px;
+	border-radius: 6px;
+	width: 10%;
+	top: -2px;
+	margin: 0;
+	cursor: pointer;
+}
+
+.lc-wrapper .lc-scrollbar {
+	display: block;
+	position: absolute;
+	height: 6px;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	user-select: none;
+	-ms-user-select: none;
+	-webkit-user-select: none;
+	font-size: 0;
+}

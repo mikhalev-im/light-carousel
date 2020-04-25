@@ -1,0 +1,26 @@
+body {
+  font-family: 'Roboto Slab', serif;
+}
+
+li {
+  padding-right: 10px;
+}
+
+.page-header {
+  padding-bottom: 9px;
+  margin: 40px 0 20px;
+  border-bottom: 1px solid #eee;
+}
+
+.code {
+  padding: 16px;
+  background-color: #f6f8fa;
+  border-radius: 3px;
+  line-height: 1.45;
+  font-size: 85%;
+}
+
+.container {
+  width: 800px;
+  margin: 0 auto;
+}

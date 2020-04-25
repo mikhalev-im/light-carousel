@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Slider</title>
+		<link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="css/styles.css">
+		<link rel="stylesheet" type="text/css" href="css/page.css">
+	</head>
+	<body>
+		<div class="container">
+			<h1 class="page-header">Light carousel</h1>
+			<p>Light-weight Amazon-like carousel based on jQuery!</p>
+
+			<p>Github repo: <a href="https://github.com/C1one-38/light-carousel">https://github.com/C1one-38/light-carousel</a></p>
+			
+			<h2 class="page-header">Demo:</h2>
+			<div class="lc-wrapper" id="carousel">
+				<ul style="padding: 0;">
+					<li>
+						<img src="./img/01.jpg" alt="" />
+					</li>
+					<li>
+						<img src="./img/02.jpg" alt="" />
+					</li>
+					<li>
+						<img src="./img/03.jpg" alt="" />
+					</li>
+					<li>
+						<img src="./img/04.jpg" alt="" />
+					</li>
+					<li>
+						<img src="./img/05.jpg" alt="" />
+					</li>
+					<li>
+						<img src="./img/06.jpg" alt="" />
+					</li>
+					<li>
+						<img src="./img/07.jpg" alt="" />
+					</li>
+					<li>
+						<img src="./img/08.jpg" alt="" />
+					</li>
+					<li>
+						<img src="./img/09.jpg" alt="" />
+					</li>
+				</ul>
+	
+				<a href="#" class="lc-arrow-left lc-arrow"> < </a>
+				<a href="#" class="lc-arrow-right lc-arrow"> > </a>
+	
+				<span class="lc-scrollbar">
+					<span class="lc-scrollbar-track">
+						<span class="lc-scrollbar-thumb"></span>
+					</span>
+				</span>
+			</div>
+		
+			<div>
+				<h2 class="page-header">How to install?</h2>
+				<p>Using npm: <code class="code">npm install light-carousel</code></p>
+
+				<h2 class="page-header">Docs</h2>
+				<p>On github page: <a href="https://github.com/C1one-38/light-carousel">https://github.com/C1one-38/light-carousel</a></p>
+			</div>
+		
+		</div>
+
+		<script type="text/javascript" src='https://code.jquery.com/jquery-3.1.1.min.js'></script>
+		<script type="text/javascript" src="js/lc.min.js"></script>
+		<script type="text/javascript">
+			window.onload = function init() {
+				var lc = new LightCarousel($('#carousel'));
+				lc.setup();
+			}
+		</script>
+	</body>
+</html>
