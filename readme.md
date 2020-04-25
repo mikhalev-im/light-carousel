@@ -2,7 +2,7 @@
 Light-weight Amazon-like carousel based on jQuery!
 
 ## Demo:
-<a href="https://c1one-38.github.io/light-carousel/">https://c1one-38.github.io/light-carousel/</a>
+<a href="https://mikhalev-im.github.io/light-carousel/">https://mikhalev-im.github.io/light-carousel/</a>
 
 ## How to install:
 
